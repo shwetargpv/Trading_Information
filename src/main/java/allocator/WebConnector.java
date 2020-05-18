@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -50,9 +51,9 @@ public class WebConnector<V> {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("start-maximized");
             chromeOptions.addArguments("--disable-notifications");
+            chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
             driver = new ChromeDriver(chromeOptions);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-           // driver.get(prop.getProperty("AppURL"));
            ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
             break;
         case "firefox":
