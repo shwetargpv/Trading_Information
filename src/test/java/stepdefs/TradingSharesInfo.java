@@ -54,8 +54,8 @@ public class TradingSharesInfo extends ExtentReportListener
 			RM.PerformActionOnElement("SearchIcon_TradingViewWebsite", "click", "");
 			Thread.sleep(10000);
 			logInfo.info(RM.getTextFromElement("PercentageLongTitle_TradingViewwebsite") + "  -->  " + RM.getTextFromElement("Percentage_TradingViewWebsite"));
-			RM.setSpecificColumnData("C:\\Users\\Raghwendra Sonu\\Desktop\\Trading_Information.xlsx", "TradingInfo","CompanyName",RM.getTextFromElement("PercentageLongTitle_TradingViewwebsite"),i+1);
-			RM.setSpecificColumnData("C:\\Users\\Raghwendra Sonu\\Desktop\\Trading_Information.xlsx", "TradingInfo","DailyProfit",RM.getTextFromElement("Percentage_TradingViewWebsite"),i+1);
+			RM.setSpecificColumnData(".\\src\\test\\testdata\\Trading_Information.xlsx", "TradingInfo","CompanyName",RM.getTextFromElement("PercentageLongTitle_TradingViewwebsite"),i+1);
+			RM.setSpecificColumnData(".\\src\\test\\testdata\\Trading_Information.xlsx", "TradingInfo","DailyProfit",RM.getTextFromElement("Percentage_TradingViewWebsite"),i+1);
 		}
 	}
 }
