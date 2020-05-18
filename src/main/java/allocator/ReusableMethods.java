@@ -83,9 +83,8 @@ public class ReusableMethods {
 		return value;
 	}
 
-	public void setSpecificColumnData(String FilePath, String SheetName, String ColumnName) throws IOException{
-		FileInputStream fis;
-		fis = new FileInputStream(FilePath);
+	public void setSpecificColumnData(String FilePath, String SheetName, String ColumnName, String CellValue, int RowNumber) throws IOException{
+		FileInputStream fis=new FileInputStream(FilePath);
 		FileOutputStream fos = null;
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheet(SheetName);
@@ -102,21 +101,28 @@ public class ReusableMethods {
 				col_Num = i;
 			}
 		}
-		row = sheet.getRow(1);
+		row = sheet.getRow(RowNumber);
 		if(row == null)
-			row = sheet.createRow(1);
+			row = sheet.createRow(RowNumber);
 		cell = row.getCell(col_Num);
 		if(cell == null)
 			cell = row.createCell(col_Num);
 		font.setFontName("Comic Sans MS");
-		font.setFontHeight(14.0);
+		font.setFontHeight(9.0);
 		font.setBold(true);
 		font.setColor(HSSFColor.WHITE.index);
 		style.setFont(font);
-		style.setFillForegroundColor(HSSFColor.GREEN.index);
 		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		cell.setCellStyle(style);
-		cell.setCellValue("PASS");
+		if(((CellValue.contains("+")) && (col_Num!=0))) {
+			style.setFillForegroundColor(HSSFColor.GREEN.index);
+			cell.setCellStyle(style);
+			cell.setCellValue(CellValue);
+		}
+		else{
+			style.setFillForegroundColor(HSSFColor.BLACK.index);
+			cell.setCellStyle(style);
+			cell.setCellValue(CellValue);	
+		}
 		fos = new FileOutputStream(FilePath);
 		workbook.write(fos);
 		fos.close();
@@ -642,7 +648,7 @@ public class ReusableMethods {
 		for(int i=0; i<obtainedList1.size();i++)
 		{
 			if(!obtainedList1.get(i).trim().contains("PNRL")) {
-			TickerExchange.add(obtainedList2.get(i) +":"  +obtainedList1.get(i));
+				TickerExchange.add(obtainedList2.get(i) +":"  +obtainedList1.get(i));
 			}
 		}
 		return TickerExchange;
